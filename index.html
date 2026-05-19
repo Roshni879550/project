@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FitLife Pro</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: Arial, sans-serif;
+      color: #333;
+      background: #fff;
+    }
+
+    header {
+      background: rgba(10, 10, 30, 0.92);
+      padding: 18px 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    header a.logo {
+      color: #e94560;
+      font-size: 26px;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    header a.logo span { color: #fff; }
+
+    header nav a {
+      color: #ddd;
+      text-decoration: none;
+      margin-left: 22px;
+      font-size: 14px;
+      transition: color 0.3s;
+    }
+
+    header nav a:hover { color: #e94560; }
+
+    header button {
+      margin-left: 25px;
+      background: #e94560;
+      color: #fff;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    header button:hover { background: #c0392b; }
+
+    .hero {
+      min-height: 100vh;
+      background: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1600&auto=format&fit=crop') center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      padding: 80px 60px;
+      position: relative;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(5, 5, 20, 0.65);
+    }
+
+    .hero-text {
+      position: relative;
+      z-index: 1;
+      max-width: 560px;
+    }
+
+    .hero-text h1 { color: #fff; font-size: 50px; line-height: 1.2; margin-bottom: 18px; }
+    .hero-text h1 span { color: #e94560; }
+    .hero-text p { color: #ccc; font-size: 16px; line-height: 1.8; margin-bottom: 30px; }
+
+    .hero-text a {
+      background: #e94560;
+      color: #fff;
+      padding: 14px 35px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-size: 15px;
+      margin-right: 12px;
+      display: inline-block;
+      transition: opacity 0.3s;
+    }
+
+    .hero-text a:hover { opacity: 0.85; }
+
+    .hero-text a.outline {
+      background: transparent;
+      border: 2px solid #fff;
+      color: #fff;
+    }
+
+    .numbers {
+      background: #e94560;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      padding: 35px 40px;
+      gap: 20px;
+      text-align: center;
+    }
+
+    .numbers div h2 { color: #fff; font-size: 38px; }
+    .numbers div p  { color: #fdd; font-size: 14px; margin-top: 4px; }
+
+    .why {
+      padding: 80px 60px;
+      background: #fffdf9;
+      text-align: center;
+    }
+
+    .why h2 { font-size: 34px; color: #1a1a2e; margin-bottom: 10px; }
+    .why h2 span { color: #e94560; }
+    .why p.sub { color: #888; font-style: italic; margin-bottom: 50px; }
+
+    .why-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 25px;
+      justify-content: center;
+    }
+
+    .why-box {
+      background: #fff;
+      border-radius: 18px;
+      padding: 30px 22px;
+      width: 220px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.07);
+      border-top: 4px solid #e94560;
+      transition: transform 0.3s;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .why-box:hover { transform: translateY(-8px); }
+    .why-box .ico  { font-size: 40px; margin-bottom: 14px; }
+    .why-box h3    { font-size: 16px; color: #1a1a2e; margin-bottom: 8px; }
+    .why-box p     { font-size: 13px; color: #888; line-height: 1.6; }
+
+    .home-about {
+      padding: 80px 60px;
+      display: flex;
+      gap: 50px;
+      align-items: center;
+      flex-wrap: wrap;
+      background: #f0f4ff;
+    }
+
+    .home-about img {
+      flex: 1;
+      min-width: 280px;
+      max-width: 460px;
+      border-radius: 20px;
+      object-fit: cover;
+      height: 360px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+    }
+
+    .home-about-text { flex: 1; min-width: 280px; }
+    .home-about-text h2 { font-size: 34px; color: #1a1a2e; margin-bottom: 16px; }
+    .home-about-text h2 span { color: #e94560; }
+    .home-about-text p { color: #666; line-height: 1.85; font-size: 15px; margin-bottom: 18px; }
+
+    .home-about-text a {
+      display: inline-block;
+      background: #e94560;
+      color: #fff;
+      padding: 13px 30px;
+      border-radius: 25px;
+      text-decoration: none;
+      font-size: 14px;
+      transition: background 0.3s;
+    }
+
+    .home-about-text a:hover { background: #c0392b; }
+
+    .home-cta {
+      padding: 90px 60px;
+      text-align: center;
+      background: url('https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=1600&auto=format&fit=crop') center/cover no-repeat;
+      position: relative;
+    }
+
+    .home-cta::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(5, 5, 30, 0.80);
+    }
+
+    .home-cta h2       { color: #fff; font-size: 40px; position: relative; margin-bottom: 14px; }
+    .home-cta h2 span  { color: #e94560; }
+    .home-cta p        { color: #bbc; font-size: 16px; position: relative; margin-bottom: 35px; }
+
+    .home-cta a {
+      position: relative;
+      display: inline-block;
+      background: #e94560;
+      color: #fff;
+      padding: 16px 45px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-size: 16px;
+      transition: background 0.3s;
+    }
+
+    .home-cta a:hover { background: #c0392b; }
+
+    footer {
+      background: #050514;
+      padding: 50px 60px 22px;
+      border-top: 3px solid #e94560;
+    }
+
+    .foot-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      margin-bottom: 35px;
+    }
+
+    .foot-brand { flex: 2; min-width: 200px; }
+
+    .foot-brand a {
+      color: #e94560;
+      font-size: 24px;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .foot-brand a span { color: #fff; }
+
+    .foot-brand p {
+      color: #667;
+      font-size: 14px;
+      line-height: 1.8;
+      margin-top: 14px;
+      max-width: 280px;
+    }
+
+    .foot-col { flex: 1; min-width: 140px; }
+
+    .foot-col h4 {
+      color: #fff;
+      font-size: 15px;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #e94560;
+    }
+
+    .foot-col ul { list-style: none; }
+    .foot-col ul li { margin-bottom: 10px; }
+
+    .foot-col ul li a {
+      color: #667;
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.3s;
+    }
+
+    .foot-col ul li a:hover { color: #e94560; }
+
+    .foot-bottom {
+      text-align: center;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      color: #445;
+      font-size: 13px;
+    }
+
+    @media (max-width: 600px) {
+      header { padding: 15px 20px; flex-wrap: wrap; gap: 10px; }
+      .hero  { padding: 60px 25px; }
+      .hero-text h1 { font-size: 34px; }
+      .why, .home-about, footer { padding: 50px 20px; }
+      .home-cta { padding: 60px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo">Fit<span>Life</span> Pro</a>
+  <nav>
+    <a href="about.html">About</a>
+    <a href="services.html">Services</a>
+    <a href="plans.html">Plans</a>
+    <a href="trainers.html">Trainers</a>
+    <a href="bmi.html">BMI</a>
+    <a href="contact.html">Contact</a>
+    <button onclick="location.href='plans.html'">Join Now</button>
+  </nav>
+</header>
+
+<main>
+
+  <section class="hero">
+    <div class="hero-text">
+      <h1>Wake Up.<br>Show Up.<br><span>Get Stronger.</span></h1>
+      <p>Real coaches. Real plans. Real results — for real people just like you.</p>
+      <a href="plans.html">Start Today</a>
+      <a href="about.html" class="outline">Our Story</a>
+    </div>
+  </section>
+
+  <section class="numbers">
+    <div><h2>15,000+</h2><p>Happy Members</p></div>
+    <div><h2>50+</h2><p>Expert Trainers</p></div>
+    <div><h2>200+</h2><p>Workout Plans</p></div>
+    <div><h2>10 Yrs</h2><p>Of Experience</p></div>
+    <div><h2>98%</h2><p>Success Rate</p></div>
+  </section>
+
+  <section class="why">
+    <h2>Everything You Need to <span>Thrive</span></h2>
+    <p class="sub">Click any card to explore that section of the site</p>
+    <div class="why-grid">
+      <a class="why-box" href="about.html">
+        <div class="ico">🏠</div>
+        <h3>About Us</h3>
+        <p>Our story, our mission, and the people who make it happen.</p>
+      </a>
+      <a class="why-box" href="services.html">
+        <div class="ico">🏋️</div>
+        <h3>Services</h3>
+        <p>From yoga to HIIT — we have a class for every goal and level.</p>
+      </a>
+      <a class="why-box" href="plans.html">
+        <div class="ico">💳</div>
+        <h3>Plans & Pricing</h3>
+        <p>Transparent pricing with no hidden fees. Start from just $29.</p>
+      </a>
+      <a class="why-box" href="trainers.html">
+        <div class="ico">🧑‍🏫</div>
+        <h3>Our Trainers</h3>
+        <p>Meet the certified coaches who will guide your transformation.</p>
+      </a>
+      <a class="why-box" href="bmi.html">
+        <div class="ico">⚖️</div>
+        <h3>BMI Calculator</h3>
+        <p>Check your Body Mass Index and find the right plan for you.</p>
+      </a>
+      <a class="why-box" href="contact.html">
+        <div class="ico">📞</div>
+        <h3>Contact Us</h3>
+        <p>We are real people who reply. Come say hello anytime.</p>
+      </a>
+    </div>
+  </section>
+
+  <section class="home-about">
+    <img
+      src="https://images.unsplash.com/photo-1605296867304-46d5465a13f1?w=800&auto=format&fit=crop"
+      alt="People working out together"
+    >
+    <div class="home-about-text">
+      <h2>We Started Small.<br>We Dream <span>Big.</span></h2>
+      <p>
+        Back in 2014, a handful of fitness lovers opened a tiny studio with
+        one simple goal — help people feel good in their own skin. Today
+        over 15,000 members call FitLife Pro their second home.
+      </p>
+      <p>
+        No cookie-cutter plans. No judgment. Just honest guidance,
+        warm community, and real results for everyday people.
+      </p>
+      <a href="about.html">Read Our Full Story →</a>
+    </div>
+  </section>
+
+  <section class="home-cta">
+    <h2>Ready to Start Your <span>Journey?</span></h2>
+    <p>Pick a plan today and get your first two weeks completely free.</p>
+    <a href="plans.html">View All Plans</a>
+  </section>
+
+</main>
+
+<footer>
+  <div class="foot-grid">
+    <div class="foot-brand">
+      <a href="index.html">Fit<span>Life</span> Pro</a>
+      <p>Your fitness home since 2014. Come as you are. Leave as a better you.</p>
+    </div>
+    <div class="foot-col">
+      <h4>Pages</h4>
+      <ul>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="plans.html">Plans</a></li>
+        <li><a href="trainers.html">Trainers</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h4>Programs</h4>
+      <ul>
+        <li><a href="plans.html">Beginner Plan</a></li>
+        <li><a href="plans.html">Intermediate Plan</a></li>
+        <li><a href="plans.html">Advanced Plan</a></li>
+        <li><a href="services.html">Online Coaching</a></li>
+        <li><a href="services.html">Nutrition Plans</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h4>Help</h4>
+      <ul>
+        <li><a href="bmi.html">BMI Tool</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Use</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <p>© 2024 FitLife Pro — Made with ❤️ for IBM Project</p>
+  </div>
+</footer>
+
+</body>
+</html>
